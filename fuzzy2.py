@@ -13,10 +13,10 @@ iris = load_iris()
 
 def clustering(X,K,m):
     """
-    Fuzzy C-meansクラスタリング
-    X: 特徴ベクトルの集合
-    K: クラスタ数
-    m: Fuzzyパラメータ
+    X:データセット
+    K:設定したクラスター数
+    m:設定したファジー度
+    
     """
     X=np.array(X)
     #データ数
