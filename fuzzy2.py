@@ -7,18 +7,14 @@ Created on Thu Nov  5 00:29:57 2020
 
 #データ行がサンプル、列が変数
 import numpy as np
-from sklearn.datasets import load_iris
-iris = load_iris()
 
-
-def clustering(X,K,m):
+def FCM(X,K,m):
     """
     X:データセット
     K:設定したクラスター数
     m:設定したファジー度
     
     """
-    X=np.array(X)
     #データ数
     N=X.shape[0]
     #データの次元
@@ -32,6 +28,7 @@ def clustering(X,K,m):
     
     while True:
         #帰属度の更新
+        U=[]
         for x in X:
             u=[(1/np.linalg.norm(x-c[kk]))**(2/(m-1))/np.sum([(1/np.linalg.norm(x-c[k]))**(2/(m-1)) for k in range(K)]) for kk in range(K)]
             #u=np.array(u)
@@ -60,25 +57,26 @@ def clustering(X,K,m):
         if kurikaesi>=100:
             print('{}回繰り返し後、終了\n'.format(kurikaesi))
             break
-        U=[]
     return c,U
 
 
+###ここからクラスタリング###
 #クラスター数
 K=3
 #Fuzzyパラメータ
 m=2.0
 
-#クラスタリング
-mu=clustering(iris.data,K,m)
+from sklearn.datasets import load_iris
+iris = load_iris()
+result=FCM(iris.data,K,m)
 
 #帰属クラスター結果
 cluster_num=[]
-for i in mu[1]:
+for i in result[1]:
     for j in range(len(i)):
         if i[j]==max(i):
             cluster_num.append(j+1)
         
 
-print('クラスター重心:\n{}\n'.format(mu[0]))
+print('クラスター重心:\n{}\n'.format(result[0]))
 print('帰属クラスター:\n{}\n'.format(cluster_num))
