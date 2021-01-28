@@ -2,7 +2,7 @@
 """
 Created on Sun Dec  6 02:52:43 2020
 
-@author: shunsuke
+@author: 
 """
 
 #データ行がサンプル、列が変数
